@@ -1,3 +1,4 @@
+library(dplyr)
 ##colnames
 col <- read.table("./UCI HAR Dataset/features.txt")
 col_frame <- as.data.frame(col)
@@ -44,18 +45,14 @@ extracted_dataset$activity <- as.character(extracted_dataset$activity)
 class(extracted_dataset$activity)
 i <- 1
 for (lev in activity_labels[,1]) {
-  print(class(lev))
-  print(lev)
-  print(class(activity_labels[i,2]))
-  print(activity_labels[i,2])
-  gsub(lev, activity_labels[i,2], extracted_dataset$activity)
+  extracted_dataset$activity<-gsub(lev, activity_labels[i,2], extracted_dataset$activity)
   i <- i+1
 }
 
-
-##factor(extracted_dataset$activity, levels = activity_labels[,1], labels=activity_labels[,2])
-
-## 4. label the data set - done on row 21
+## 4. label the data set - done on row 22
 
 ## 5. Data set with the average of each variable for each activity and each subject
-##TODO
+independent_tidy_dataset <- extracted_dataset %>% 
+          group_by(user_id, activity) %>% 
+          summarize(across(everything(), list(mean)))
+                    
