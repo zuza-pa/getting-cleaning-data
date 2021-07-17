@@ -55,4 +55,9 @@ for (lev in activity_labels[,1]) {
 independent_tidy_dataset <- extracted_dataset %>% 
           group_by(user_id, activity) %>% 
           summarize(across(everything(), list(mean)))
-                    
+tidy_colnames_vector<-c("user_id", "activity")
+for (col in colnames(independent_tidy_dataset[3:81])) {
+  name <- paste("AVG", col, sep="_")
+  tidy_colnames_vector <- c(tidy_colnames_vector,name)
+}
+colnames(independent_tidy_dataset) <- tidy_colnames_vector
