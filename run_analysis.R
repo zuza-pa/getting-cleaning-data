@@ -61,3 +61,5 @@ for (col in colnames(independent_tidy_dataset[3:81])) {
   tidy_colnames_vector <- c(tidy_colnames_vector,name)
 }
 colnames(independent_tidy_dataset) <- tidy_colnames_vector
+## create table
+write.table(independent_tidy_dataset, file = "./tidy_dataset.txt", row.name = FALSE)
